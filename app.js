@@ -44,7 +44,6 @@ app.get("/", (req, res) => {
 });
 
 // Login route
-
 app.post("/login", async (req, res) => {
   const mobile = req.body.mobile?.trim();
   const password = req.body.password?.trim();
@@ -53,17 +52,16 @@ app.post("/login", async (req, res) => {
   try {
     const farmer = await Farmer.findOne({ mobile, password });
     if (farmer) {
-      res.send(`
-        <h2>Login successful! Welcome ${farmer.name} </h2>
-        <a href="/">Logout</a>
-      `);
+      res.json({ message: "Login successful", farmer });
     } else {
-      res.send("<h2>Invalid credentials! <a href='/'>Go back</a></h2>");
+      res.status(401).json({ message: "Invalid credentials" });
     }
   } catch (err) {
-    res.status(500).send("Server error! Try again later.");
+    console.error("Login error:", err);
+    res.status(500).json({ message: "Server error! Try again later." });
   }
 });
+
 
 // Start server
 app.listen(PORT, () => {
