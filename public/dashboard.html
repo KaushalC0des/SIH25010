@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmWise Dashboard</title>
+    <link rel="stylesheet" href="style2.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+    <header class="main-header">
+        <h1>FarmWise Dashboard</h1>
+        <p>Smart Agriculture Management</p>
+        <div class="header-icons">
+            <span class="material-icons">notifications</span>
+            <span class="material-icons">settings</span>
+            <span class="material-icons">person</span>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        
+        <section class="farm-info-banner">
+            <div class="banner-overlay"></div>
+            <div class="farm-details">
+                <h2>Green Valley Farm</h2>
+                <p>📍 Punjab, India • 125 Acres</p>
+                <span class="active-season">Active Season: Rabi</span>
+            </div>
+            <div class="farm-stats">
+                <div class="metric">
+                    <h3>3 Month Crop</h3>
+                    <p>Carrots</p>
+                </div>
+                <div class="expected-revenue">
+                    <h3>₹2,45,000</h3>
+                    <p>Expected Revenue</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="quick-stats-section">
+            <div class="stat-card">
+                <div class="icon-circle green"><span class="material-icons">eco</span></div>
+                <p><strong>98%</strong></p>
+                <p>Crop Health</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon-circle blue"><span class="material-icons">water_drop</span></div>
+                <p><strong>85%</strong></p>
+                <p>Soil Moisture</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon-circle orange"><span class="material-icons">thermostat</span></div>
+                <p><strong>22°C</strong></p>
+                <p>Soil Temp</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon-circle green"><span class="material-icons">grass</span></div>
+                <p><strong>Good</strong></p>
+                <p>Nutrient Level</p>
+            </div>
+        </section>
+
+        <div class="main-content-grid">
+            
+            <section class="weather-card">
+                <h3>Today's Weather</h3>
+                <div class="weather-main">
+                    <span class="material-icons sunny-icon" id="weather-icon">wb_sunny</span>
+                    <div class="temp-info">
+                        <strong id="temperature">24°C</strong>
+                        <p id="weather-description">Sunny</p>
+                    </div>
+                    <div class="high-low-temp">
+                        <p>High: <span id="temp-max">28°C</span></p>
+                        <p>Low: <span id="temp-min">18°C</span></p>
+                    </div>
+                </div>
+                <div class="weather-details">
+                    <p>Humidity <strong id="humidity">65%</strong></p>
+                    <p>Wind <strong id="wind-speed">12 km/h</strong></p>
+                </div>
+                <div class="five-day-forecast">
+                    <h4>5-Day Forecast</h4>
+                    <div class="forecast-day">
+                        <p id="day1">Wed</p>
+                        <span class="material-icons" id="day1-icon">wb_sunny</span>
+                        <p><span id="day1-temp">26°</span></p>
+                    </div>
+                    <div class="forecast-day">
+                        <p id="day2">Thu</p>
+                        <span class="material-icons" id="day2-icon">wb_sunny</span>
+                        <p><span id="day2-temp">22°</span></p>
+                    </div>
+                    <div class="forecast-day">
+                        <p id="day3">Fri</p>
+                        <span class="material-icons" id="day3-icon">wb_sunny</span>
+                        <p><span id="day3-temp">20°</span></p>
+                    </div>
+                    <div class="forecast-day">
+                        <p id="day4">Sat</p>
+                        <span class="material-icons" id="day4-icon">wb_sunny</span>
+                        <p><span id="day4-temp">25°</span></p>
+                    </div>
+                    <div class="forecast-day">
+                        <p id="day5">Sun</p>
+                        <span class="material-icons" id="day5-icon">wb_sunny</span>
+                        <p><span id="day5-temp">27°</span></p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="crop-recommendations-card">
+                <h3>Crop Recommendations</h3>
+                <div class="recommendation-item">
+                    <div class="crop-details">
+                        <h4>Wheat</h4>
+                        <p>Winter Season</p>
+                    </div>
+                    <span class="recommendation-label excellent">Excellent</span>
+                    <p class="recommendation-text">Perfect soil conditions and weather forecast for wheat planting</p>
+                    <div class="yield-details">
+                        <p>Expected Yield</p>
+                        <strong>High</strong>
+                        <button>Details</button>
+                    </div>
+                </div>
+                <hr>
+                <div class="recommendation-item">
+                    <div class="crop-details">
+                        <h4>Corn</h4>
+                        <p>Summer Season</p>
+                    </div>
+                    <span class="recommendation-label good">Good</span>
+                    <p class="recommendation-text">Suitable for planting with proper irrigation</p>
+                </div>
+            </section>
+
+            <section class="disease-management-card">
+                <h3>Disease Management</h3>
+                <div class="health-score">
+                    <p>Health Score:</p>
+                    <strong>85%</strong>
+                </div>
+                <div class="alert-item">
+                    <span class="material-icons">warning</span>
+                    <div class="alert-details">
+                        <h4>Late Blight</h4>
+                        <p>Affecting Tomatoes</p>
+                    </div>
+                    <span class="alert-label high">High</span>
+                </div>
+                <p class="alert-text">High humidity conditions favor late blight development</p>
+                <div class="action-item">
+                    <p>Recommended Action:</p>
+                    <div class="action-details">
+                        <p>Apply <strong>fungicide</strong> spray immediately</p>
+                        <button>View Details</button>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+</body>
+</html>
