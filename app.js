@@ -38,17 +38,18 @@ async function initializeData() {
 
 main();
 
-// Serve login page
+// Routes
+// Home page
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.sendFile(path.join(__dirname, "public", "home_page", "index.html"));
 });
 
-// Serve dashboard page
-app.get("/dashboard", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "dashboard.html"));
+// Login page
+app.get("/login", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "login_page", "login.html"));
 });
 
-// Login route
+// Login POST handler
 app.post("/login", async (req, res) => {
   const mobile = req.body.mobile?.trim();
   const password = req.body.password?.trim();
@@ -57,14 +58,25 @@ app.post("/login", async (req, res) => {
   try {
     const farmer = await Farmer.findOne({ mobile, password });
     if (farmer) {
-      // ✅ Redirect directly to dashboard
-      res.redirect("/dashboard");
+      // ✅ Redirect to home after successful login
+      res.redirect("/");
     } else {
-      res.send("<h2>Invalid credentials! <a href='/'>Go back</a></h2>");
+      // ❌ Show error and reload login page
+      res.send(`
+        <script>
+          alert("Invalid credentials! Please try again.");
+          window.location.href = "/login";
+        </script>
+      `);
     }
   } catch (err) {
     console.error("Login error:", err);
-    res.status(500).send("Server error! Try again later.");
+    res.status(500).send(`
+      <script>
+        alert("Server error! Please try again later.");
+        window.location.href = "/login";
+      </script>
+    `);
   }
 });
 
@@ -72,4 +84,5 @@ app.post("/login", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
+
 

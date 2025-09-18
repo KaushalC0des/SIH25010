@@ -1,13 +1,13 @@
-/* body {
+body {
       font-family: Arial, sans-serif;
       background: #e6f4ea;
       display: flex;
       justify-content: center;
       align-items: center;
-    height: 100vh;
-    background-image: url('background.jpg');
-    background-size: cover;
-    background-position: center;
+      height: 100vh;
+      background-image: url('/images/background.jpg');
+      background-size: cover;
+      background-position: center;
       
     }
     .login-box {

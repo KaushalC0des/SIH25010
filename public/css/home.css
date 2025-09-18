@@ -82,7 +82,8 @@ body {
     align-items: center;
     text-align: center;
     color: var(--light-text);
-    background: url('hero-farming\ \(1\).jpg') no-repeat center center/cover; /* Placeholder for image */
+    background: url('/images/hero-farming (1).jpg') no-repeat center center/cover;
+
 }
 /* Note: You will need to replace 'hero-bg.jpg' with a real image of a farm. */
 
