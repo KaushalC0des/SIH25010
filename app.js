@@ -10,7 +10,7 @@ const PORT = 8080;
 // Middleware
 app.use(express.urlencoded({ extended: true })); // Parse form data
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public","home_page"))); // Serve static files
+app.use(express.static(path.join(__dirname, "public"))); // Serve static files
 
 // MongoDB connection
 const MONGO_URL = "mongodb://127.0.0.1:27017/farmer";
@@ -36,18 +36,53 @@ async function initializeData() {
   }
 }
 
-main()
-// Define routes
+main();
+
+// Routes
+// Home page
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "home_page", "index.html"));
 });
+
+// Login page
 app.get("/login", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "login_page", "index.html"));
+  res.sendFile(path.join(__dirname, "public", "login_page", "login.html"));
 });
 
-  
+// Login POST handler
+app.post("/login", async (req, res) => {
+  const mobile = req.body.mobile?.trim();
+  const password = req.body.password?.trim();
+  console.log("Incoming login data:", req.body);
+
+  try {
+    const farmer = await Farmer.findOne({ mobile, password });
+    if (farmer) {
+      // ✅ Redirect to home after successful login
+      res.redirect("/");
+    } else {
+      // ❌ Show error and reload login page
+      res.send(`
+        <script>
+          alert("Invalid credentials! Please try again.");
+          window.location.href = "/login";
+        </script>
+      `);
+    }
+  } catch (err) {
+    console.error("Login error:", err);
+    res.status(500).send(`
+      <script>
+        alert("Server error! Please try again later.");
+        window.location.href = "/login";
+      </script>
+    `);
+  }
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
+
 
