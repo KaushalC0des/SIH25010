@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/images/crop-icon.jpg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query Support - KrishiSeva</title>
+    <link rel="stylesheet" href="../css/query.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M7 20h10"/>
+                        <path d="M10 20c5.5-2.5.8-6.4 3-10"/>
+                        <path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/>
+                        <path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.7 4.3-1.4 1-1.1 1.6-2.7 1.7-4.6-2.7.1-4 1-4.9 2z"/>
+                    </svg>
+                    <span class="logo-text">KRISHIVERSE</span>
+                </div>
+                
+                <nav class="nav-desktop">
+                    <a href="krishiseva.html" class="nav-link">Home</a>
+                    <a href="query-support.html" class="nav-link active">Query Support</a>
+                    <a href="#" class="nav-link">About</a>
+                    <a href="#" class="nav-link">Services</a>
+                    <a href="#" class="nav-link">Contact</a>
+                </nav>
+                
+                <div class="header-actions">
+                    <button class="btn btn-outline btn-sm">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        Login
+                    </button>
+                    <button class="menu-toggle" onclick="toggleMobileMenu()">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="4" x2="20" y1="6" y2="6"/>
+                            <line x1="4" x2="20" y1="12" y2="12"/>
+                            <line x1="4" x2="20" y1="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div class="mobile-menu" id="mobileMenu">
+                <a href="krishiseva.html" class="mobile-nav-link">Home</a>
+                <a href="query-support.html" class="mobile-nav-link active">Query Support</a>
+                <a href="#" class="mobile-nav-link">About</a>
+                <a href="#" class="mobile-nav-link">Services</a>
+                <a href="#" class="mobile-nav-link">Contact</a>
+                <button class="btn btn-outline btn-sm mobile-login">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                    Login
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-icons">
+                    <svg class="hero-icon-main" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                    <svg class="hero-icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M7 20h10"/>
+                        <path d="M10 20c5.5-2.5.8-6.4 3-10"/>
+                        <path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/>
+                        <path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.7 4.3-1.4 1-1.1 1.6-2.7 1.7-4.6-2.7.1-4 1-4.9 2z"/>
+                    </svg>
+                </div>
+                <h1 class="hero-title">Krishiseva Query Support</h1>
+                <p class="hero-description">
+                    Get personalized guidance from our agricultural experts. Share your farming challenges, 
+                    crop concerns, or technical questions and receive professional advice tailored to your specific needs.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section class="form-section">
+        <div class="container">
+            <div class="form-card">
+                <div class="form-header">
+                    <div class="form-title">
+                        <svg class="form-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14,2 14,8 20,8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline points="10,9 9,9 8,9"/>
+                        </svg>
+                        Submit Your Query
+                    </div>
+                    <p class="form-subtitle">
+                        Please provide detailed information to help our experts understand your specific situation
+                    </p>
+                </div>
+
+                <form id="queryForm" class="query-form">
+                    <!-- Personal Information -->
+                    <div class="form-section-group">
+                        <div class="section-header">
+                            <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            <h3 class="section-title">Personal Information</h3>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="fullName" class="form-label">Full Name *</label>
+                                <input type="text" id="fullName" name="fullName" class="form-input" placeholder="Enter your full name" required>
+                                <div class="error-message" id="fullNameError"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="form-label">
+                                    <svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                        <polyline points="22,6 12,13 2,6"/>
+                                    </svg>
+                                    Email Address *
+                                </label>
+                                <input type="email" id="email" name="email" class="form-input" placeholder="your.email@example.com" required>
+                                <div class="error-message" id="emailError"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone" class="form-label">
+                                    <svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                    </svg>
+                                    Phone Number *
+                                </label>
+                                <input type="tel" id="phone" name="phone" class="form-input" placeholder="+91 XXXXX XXXXX" required>
+                                <div class="error-message" id="phoneError"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="location" class="form-label">
+                                    <svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                        <circle cx="12" cy="10" r="3"/>
+                                    </svg>
+                                    Location (District, State) *
+                                </label>
+                                <input type="text" id="location" name="location" class="form-input" placeholder="e.g., Nashik, Maharashtra" required>
+                                <div class="error-message" id="locationError"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Farm Information -->
+                    <div class="form-section-group">
+                        <div class="section-header">
+                            <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 20h10"/>
+                                <path d="M10 20c5.5-2.5.8-6.4 3-10"/>
+                                <path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/>
+                                <path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.7 4.3-1.4 1-1.1 1.6-2.7 1.7-4.6-2.7.1-4 1-4.9 2z"/>
+                            </svg>
+                            <h3 class="section-title">Farm Information</h3>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="farmSize" class="form-label">Farm Size *</label>
+                                <select id="farmSize" name="farmSize" class="form-select" required>
+                                    <option value="">Select farm size</option>
+                                    <option value="small">Small (0-2 acres)</option>
+                                    <option value="medium">Medium (2-10 acres)</option>
+                                    <option value="large">Large (10-50 acres)</option>
+                                    <option value="commercial">Commercial (50+ acres)</option>
+                                </select>
+                                <div class="error-message" id="farmSizeError"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cropType" class="form-label">Primary Crop Type *</label>
+                                <select id="cropType" name="cropType" class="form-select" required>
+                                    <option value="">Select crop type</option>
+                                    <option value="rice">Rice</option>
+                                    <option value="wheat">Wheat</option>
+                                    <option value="sugarcane">Sugarcane</option>
+                                    <option value="cotton">Cotton</option>
+                                    <option value="maize">Maize</option>
+                                    <option value="vegetables">Vegetables</option>
+                                    <option value="fruits">Fruits</option>
+                                    <option value="pulses">Pulses</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <div class="error-message" id="cropTypeError"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Query Details -->
+                    <div class="form-section-group">
+                        <div class="section-header">
+                            <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                            </svg>
+                            <h3 class="section-title">Query Details</h3>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="queryCategory" class="form-label">Query Category *</label>
+                                <select id="queryCategory" name="queryCategory" class="form-select" required>
+                                    <option value="">Select category</option>
+                                    <option value="pest-disease">Pest & Disease Management</option>
+                                    <option value="soil-nutrition">Soil & Nutrition</option>
+                                    <option value="irrigation">Irrigation & Water Management</option>
+                                    <option value="seeds-varieties">Seeds & Varieties</option>
+                                    <option value="weather-climate">Weather & Climate Issues</option>
+                                    <option value="market-prices">Market & Pricing</option>
+                                    <option value="government-schemes">Government Schemes</option>
+                                    <option value="technology">Agricultural Technology</option>
+                                    <option value="general">General Guidance</option>
+                                </select>
+                                <div class="error-message" id="queryCategoryError"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="urgencyLevel" class="form-label">Urgency Level *</label>
+                                <select id="urgencyLevel" name="urgencyLevel" class="form-select" required>
+                                    <option value="">Select urgency</option>
+                                    <option value="critical">Critical (Immediate response needed)</option>
+                                    <option value="high">High (Within 24 hours)</option>
+                                    <option value="medium">Medium (Within 2-3 days)</option>
+                                    <option value="low">Low (Within a week)</option>
+                                </select>
+                                <div class="error-message" id="urgencyLevelError"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Query Subject *</label>
+                            <input type="text" id="subject" name="subject" class="form-input" placeholder="Brief summary of your question" required>
+                            <div class="error-message" id="subjectError"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description" class="form-label">Detailed Description *</label>
+                            <textarea id="description" name="description" class="form-textarea" rows="6" placeholder="Please provide detailed information about your query including symptoms, current practices, timeline, and any specific concerns..." required></textarea>
+                            <div class="error-message" id="descriptionError"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="preferredContact" class="form-label">Preferred Contact Method *</label>
+                            <select id="preferredContact" name="preferredContact" class="form-select" required>
+                                <option value="">How would you like us to respond?</option>
+                                <option value="email">Email Response</option>
+                                <option value="phone">Phone Call</option>
+                                <option value="whatsapp">WhatsApp Message</option>
+                                <option value="both">Email + Phone Call</option>
+                            </select>
+                            <div class="error-message" id="preferredContactError"></div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-submit-section">
+                        <button type="submit" class="btn btn-hero btn-lg submit-btn" id="submitBtn">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="22" y1="2" x2="11" y2="13"/>
+                                <polygon points="22,2 15,22 11,13 2,9 22,2"/>
+                            </svg>
+                            Submit Query
+                        </button>
+                        <p class="form-disclaimer">
+                            * Required fields. Your information will be kept confidential and used only for providing agricultural guidance.
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Message (Hidden by default) -->
+    <div class="success-overlay" id="successOverlay">
+        <div class="success-content">
+            <svg class="success-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+            </svg>
+            <h2 class="success-title">Query Submitted Successfully!</h2>
+            <p class="success-description">
+                Thank you for reaching out to KrishiSeva. Our agricultural experts have received your query
+                and will provide personalized guidance within 24 hours.
+            </p>
+            
+            <div class="success-steps">
+                <h3 class="steps-title">What Happens Next?</h3>
+                <div class="step-item">
+                    <div class="step-dot"></div>
+                    <p>Our experts will review your query and farming context</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-dot"></div>
+                    <p>You'll receive a detailed response via your preferred contact method</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-dot"></div>
+                    <p>Follow-up support will be provided if needed</p>
+                </div>
+            </div>
+
+            <div class="success-actions">
+                <button class="btn btn-hero" onclick="resetForm()">Submit Another Query</button>
+                <button class="btn btn-outline" onclick="goHome()">Return to Home</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Form validation and submission
+        document.getElementById('queryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (validateForm()) {
+                submitForm();
+            }
+        });
+
+        function validateForm() {
+            let isValid = true;
+            const requiredFields = ['fullName', 'email', 'phone', 'location', 'farmSize', 'cropType', 'queryCategory', 'urgencyLevel', 'subject', 'description', 'preferredContact'];
+            
+            // Clear previous errors
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            document.querySelectorAll('.form-input, .form-select, .form-textarea').forEach(el => el.classList.remove('error'));
+
+            requiredFields.forEach(field => {
+                const element = document.getElementById(field);
+                const value = element.value.trim();
+                
+                if (!value) {
+                    showError(field, 'This field is required');
+                    isValid = false;
+                } else {
+                    // Specific validations
+                    if (field === 'email' && !isValidEmail(value)) {
+                        showError(field, 'Please enter a valid email address');
+                        isValid = false;
+                    } else if (field === 'phone' && value.length < 10) {
+                        showError(field, 'Phone number must be at least 10 digits');
+                        isValid = false;
+                    } else if (field === 'fullName' && value.length < 2) {
+                        showError(field, 'Name must be at least 2 characters');
+                        isValid = false;
+                    } else if (field === 'subject' && value.length < 5) {
+                        showError(field, 'Subject must be at least 5 characters');
+                        isValid = false;
+                    } else if (field === 'description' && value.length < 20) {
+                        showError(field, 'Please provide detailed description (minimum 20 characters)');
+                        isValid = false;
+                    }
+                }
+            });
+
+            return isValid;
+        }
+
+        function showError(fieldId, message) {
+            const errorElement = document.getElementById(fieldId + 'Error');
+            const inputElement = document.getElementById(fieldId);
+            
+            errorElement.textContent = message;
+            inputElement.classList.add('error');
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function submitForm() {
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.innerHTML;
+            
+            // Show loading state
+            submitBtn.innerHTML = `
+                <div class="loading-spinner"></div>
+                Submitting Query...
+            `;
+            submitBtn.disabled = true;
+
+            // Simulate API call
+            setTimeout(() => {
+                // Collect form data
+                const formData = new FormData(document.getElementById('queryForm'));
+                const data = {};
+                for (let [key, value] of formData.entries()) {
+                    data[key] = value;
+                }
+                
+                console.log('Query submitted:', data);
+                
+                // Show success message
+                document.getElementById('successOverlay').classList.add('active');
+                
+                // Reset button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        }
+
+        function resetForm() {
+            document.getElementById('queryForm').reset();
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            document.querySelectorAll('.form-input, .form-select, .form-textarea').forEach(el => el.classList.remove('error'));
+            document.getElementById('successOverlay').classList.remove('active');
+        }
+
+        function goHome() {
+            window.location.href = 'krishiseva.html';
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (!mobileMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
