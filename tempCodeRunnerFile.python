@@ -1,0 +1,23 @@
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+import joblib  # to load trained model
+
+# Load your trained model
+model = joblib.load('random_forest_modl')  # change path to your saved model
+
+# Your input
+input_data = [[90, 42, 43, 30.08, 82.00, 6.50, 120.23]]
+
+# Predict the crop
+predicted_crop = model.predict(input_data)
+print("Predicted Crop:", predicted_crop[0])
+
+# If you want probabilities for all crops
+crop_probs = model.predict_proba(input_data)[0]
+all_crops = model.classes_
+
+# Create a dataframe for easy viewing
+df = pd.DataFrame({'Crop': all_crops, 'Probability': crop_probs})
+df = df.sort_values(by='Probability', ascending=False)
+
+print(df)
