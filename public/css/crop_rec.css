@@ -1,0 +1,112 @@
+/* General body styling */
+/* General Body */
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(to bottom right, #e8f5e9, #f1f8e9);
+  color: #2e4e32;
+  background-attachment: fixed;
+}
+
+/* Container */
+.container {
+  background: #ffffff;
+  border: 2px solid #c8e6c9;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(34, 85, 34, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative leaf corner */
+.container::before {
+  content: "🌾";
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-size: 2rem;
+  opacity: 0.8;
+}
+
+/* Titles */
+h1 {
+  color: #1b5e20;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+h1::before {
+  content: "🌱";
+  font-size: 1.5rem;
+}
+
+p {
+  color: #4e6e4e;
+}
+
+/* Input Fields */
+.input-field {
+  width: 100%;
+  border: 1px solid #c8e6c9;
+  border-radius: 10px;
+  padding: 0.6rem 0.75rem;
+  background: #fdfefc;
+  transition: 0.2s ease-in-out;
+  outline: none;
+}
+
+.input-field:focus {
+  border-color: #43a047;
+  box-shadow: 0 0 6px rgba(67, 160, 71, 0.4);
+}
+
+/* Labels */
+label {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+/* Textarea */
+textarea.input-field {
+  resize: none;
+}
+
+/* Button */
+.btn-submit {
+  background: linear-gradient(135deg, #43a047, #2e7d32);
+  color: white;
+  font-weight: 600;
+  padding: 0.8rem 1.8rem;
+  border-radius: 50px;
+  box-shadow: 0 6px 12px rgba(46, 125, 50, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+  background: linear-gradient(135deg, #388e3c, #1b5e20);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 16px rgba(27, 94, 32, 0.4);
+}
+
+/* Recommendation Output */
+#recommendationOutput div {
+  background: #f1f8f5;
+  border: 1px solid #a5d6a7;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+}
+
+/* Loading Spinner */
+#loadingIndicator span {
+  font-weight: 500;
+  color: #388e3c;
+}
+
+/* Mobile-friendly spacing */
+@media (max-width: 640px) {
+  .container {
+    padding: 1.5rem;
+  }
+  h1 {
+    font-size: 1.8rem;
+  }
+}
