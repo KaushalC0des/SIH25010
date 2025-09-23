@@ -429,10 +429,15 @@
         });
         
         // Home button functionality
-        document.getElementById('homeBtn').addEventListener('click', function() {
-            resetForm();
-            resetResults();
-        });
+        // document.getElementById('homeBtn').addEventListener('click', function() {
+        //     resetForm();
+        //     resetResults();
+        // });
+        // Home button functionality (redirect to home page)
+            document.getElementById('homeBtn').addEventListener('click', function() {
+            window.location.href = "/";   // redirects to home_page/index.html
+            });
+
         
         // Reset button functionality
         document.getElementById('resetBtn').addEventListener('click', function() {
