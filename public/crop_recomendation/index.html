@@ -1,215 +1,544 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Crop Recommendation</title>
-  
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="css/crop_rec.css">
-
-  <!-- Showdown (Markdown to HTML) -->
-  <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
-</head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
-
-  <div class="container mx-auto max-w-4xl bg-white rounded-2xl shadow-xl p-8 md:p-12 space-y-8">
-    
-    <!-- Form Section -->
-    <div>
-      <h1 class="text-3xl font-bold text-gray-800 mb-2">Smart Crop Recommendation</h1>
-      <p class="text-gray-600 mb-8">Please provide details about your farm to receive tailored crop recommendations.</p>
-      
-      <form id="recommendationForm" class="space-y-6">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Crop Recommendation System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
         
-        <!-- Row 1 -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label for="farmerName" class="block text-sm font-medium text-gray-700">Farmer Name</label>
-            <input type="text" id="farmerName" name="farmerName" placeholder="Enter your name" required
-              class="input-field">
-          </div>
-          <div>
-            <label for="farmLocation" class="block text-sm font-medium text-gray-700">Farm Location</label>
-            <input type="text" id="farmLocation" name="farmLocation" placeholder="City, State/Province, Country" required
-              class="input-field">
-          </div>
+        body {
+            background: linear-gradient(135deg, #e0f7e9, #c8e6c9);
+            color: #2e7d32;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .home-btn {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .home-btn:hover {
+            background: #388e3c;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: #1b5e20;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #388e3c;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .input-section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .result-section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #2e7d32;
+            border-bottom: 2px solid #c8e6c9;
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #388e3c;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #a5d6a7;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #4caf50;
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+        }
+        
+        .btn {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            background: #388e3c;
+        }
+        
+        .btn:disabled {
+            background: #a5d6a7;
+            cursor: not-allowed;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn-group .btn {
+            flex: 1;
+        }
+        
+        .secondary-btn {
+            background: #81c784;
+        }
+        
+        .secondary-btn:hover {
+            background: #66bb6a;
+        }
+        
+        .result-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .placeholder {
+            color: #81c784;
+            font-size: 1.1rem;
+        }
+        
+        .crop-card {
+            background: #f1f8e9;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            text-align: left;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .crop-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1b5e20;
+            margin-bottom: 10px;
+        }
+        
+        .crop-details {
+            color: #388e3c;
+            line-height: 1.6;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #4caf50;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error {
+            color: #d32f2f;
+            background: #ffebee;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #388e3c;
+            font-size: 0.9rem;
+            margin-top: 30px;
+            border-top: 1px solid #c8e6c9;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .home-btn {
+                position: relative;
+                top: auto;
+                transform: none;
+                margin-bottom: 20px;
+                width: fit-content;
+                align-self: center;
+            }
+            
+            header {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <button class="home-btn" id="homeBtn">
+                <i class="fas fa-home"></i> Home
+            </button>
+            <h1><i class="fas fa-seedling"></i> Smart Crop Recommendation</h1>
+            <p class="subtitle">Get AI-powered crop suggestions based on your soil type, climate conditions, and farming preferences</p>
+        </header>
+        
+        <div class="content">
+            <section class="input-section">
+                <h2>Enter Your Farming Details</h2>
+                <form id="cropForm">
+                    <div class="form-group">
+                        <label for="soilType">Soil Type</label>
+                        <select id="soilType" required>
+                            <option value="">Select Soil Type</option>
+                            <option value="sandy">Sandy Soil</option>
+                            <option value="clay">Clay Soil</option>
+                            <option value="loamy">Loamy Soil</option>
+                            <option value="silty">Silty Soil</option>
+                            <option value="peaty">Peaty Soil</option>
+                            <option value="chalky">Chalky Soil</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="climate">Climate Type</label>
+                        <select id="climate" required>
+                            <option value="">Select Climate</option>
+                            <option value="tropical">Tropical</option>
+                            <option value="temperate">Temperate</option>
+                            <option value="arid">Arid/Desert</option>
+                            <option value="mediterranean">Mediterranean</option>
+                            <option value="continental">Continental</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="waterAvailability">Water Availability</label>
+                        <select id="waterAvailability" required>
+                            <option value="">Select Water Availability</option>
+                            <option value="high">High (Good irrigation)</option>
+                            <option value="medium">Medium (Seasonal rainfall)</option>
+                            <option value="low">Low (Limited water)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="season">Growing Season</label>
+                        <select id="season" required>
+                            <option value="">Select Season</option>
+                            <option value="spring">Spring</option>
+                            <option value="summer">Summer</option>
+                            <option value="autumn">Autumn/Fall</option>
+                            <option value="winter">Winter</option>
+                            <option value="rainy">Rainy Season</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="farmSize">Farm Size (in acres)</label>
+                        <input type="number" id="farmSize" min="0.1" step="0.1" placeholder="e.g., 5.5" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="experience">Farming Experience</label>
+                        <select id="experience" required>
+                            <option value="">Select Experience Level</option>
+                            <option value="beginner">Beginner (0-2 years)</option>
+                            <option value="intermediate">Intermediate (3-7 years)</option>
+                            <option value="expert">Expert (8+ years)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button type="submit" class="btn" id="recommendBtn">
+                            <i class="fas fa-robot"></i> Get Crop Recommendations
+                        </button>
+                        <button type="button" class="btn secondary-btn" id="resetBtn">
+                            <i class="fas fa-redo"></i> Reset Form
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="loading" id="loadingIndicator">
+                    <div class="spinner"></div>
+                    <p>Analyzing your inputs with AI...</p>
+                </div>
+                
+                <div class="error" id="errorMessage">
+                    <i class="fas fa-exclamation-triangle"></i> <span id="errorText">An error occurred. Please try again.</span>
+                </div>
+            </section>
+            
+            <section class="result-section">
+                <h2>Recommended Crops</h2>
+                <div class="result-content" id="resultContent">
+                    <div class="placeholder">
+                        <i class="fas fa-leaf" style="font-size: 4rem; margin-bottom: 20px; opacity: 0.5;"></i>
+                        <p>Enter your farming details and click "Get Crop Recommendations" to see AI-powered suggestions.</p>
+                    </div>
+                </div>
+            </section>
         </div>
-
-        <!-- Row 2 -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label for="farmSize" class="block text-sm font-medium text-gray-700">Farm Size</label>
-            <select id="farmSize" name="farmSize" class="input-field" required>
-              <option value="" disabled selected>Select farm size</option>
-              <option value="small">Small (Less than 5 acres)</option>
-              <option value="medium">Medium (5 - 20 acres)</option>
-              <option value="large">Large (More than 20 acres)</option>
-            </select>
-          </div>
-          <div>
-            <label for="soilType" class="block text-sm font-medium text-gray-700">Soil Type</label>
-            <select id="soilType" name="soilType" class="input-field" required>
-              <option value="" disabled selected>Select soil type</option>
-              <option value="loam">Loam</option>
-              <option value="sandy">Sandy</option>
-              <option value="clay">Clay</option>
-              <option value="silt">Silt</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Row 3 -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label for="climateZone" class="block text-sm font-medium text-gray-700">Climate Zone</label>
-            <select id="climateZone" name="climateZone" class="input-field" required>
-              <option value="" disabled selected>Select climate</option>
-              <option value="tropical">Tropical</option>
-              <option value="temperate">Temperate</option>
-              <option value="arid">Arid</option>
-              <option value="subtropical">Subtropical</option>
-            </select>
-          </div>
-          <div>
-            <label for="waterAvailability" class="block text-sm font-medium text-gray-700">Water Availability</label>
-            <select id="waterAvailability" name="waterAvailability" class="input-field" required>
-              <option value="" disabled selected>Select water source</option>
-              <option value="rainfed">Rainfed</option>
-              <option value="irrigation">Irrigation</option>
-              <option value="both">Both</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Row 4 -->
-        <div>
-          <label for="budgetRange" class="block text-sm font-medium text-gray-700">Budget Range</label>
-          <select id="budgetRange" name="budgetRange" class="input-field" required>
-            <option value="" disabled selected>Select budget range</option>
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
-        </div>
-
-        <!-- Row 5 -->
-        <div>
-          <label for="previousCrops" class="block text-sm font-medium text-gray-700">Previous Crops (Optional)</label>
-          <textarea id="previousCrops" name="previousCrops" placeholder="List crops grown in past 2-3 years..." rows="4" class="input-field"></textarea>
-        </div>
-
-        <!-- Submit Button -->
-        <div class="flex justify-center">
-          <button type="submit" class="btn-submit">
-            Get Crop Recommendations <span class="ml-2">🌱</span>
-          </button>
-        </div>
-      </form>
+        
+        
     </div>
 
-    <!-- Recommendation Display Section -->
-    <div id="recommendationOutput" class="space-y-4"></div>
-
-    <!-- Loading Indicator -->
-    <div id="loadingIndicator" class="hidden flex justify-center items-center mt-8">
-      <svg class="animate-spin h-8 w-8 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-      </svg>
-      <span class="ml-4 text-gray-600">Generating recommendations...</span>
-    </div>
-
-  </div>
-
-  <!-- JS Script -->
-  <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('recommendationForm');
-    const outputDiv = document.getElementById('recommendationOutput');
-    const loadingIndicator = document.getElementById('loadingIndicator');
-
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
-
-      // Show loading indicator and clear previous output
-      loadingIndicator.classList.remove('hidden');
-      outputDiv.innerHTML = '';
-
-      // Collect form data
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData.entries());
-
-      const farmerName = data.farmerName || 'Farmer';
-      const farmLocation = data.farmLocation || 'unspecified location';
-      const farmSize = data.farmSize || 'unspecified size';
-      const soilType = data.soilType || 'unspecified soil type';
-      const climateZone = data.climateZone || 'unspecified climate zone';
-      const waterAvailability = data.waterAvailability || 'unspecified water source';
-      const budgetRange = data.budgetRange || 'unspecified budget';
-      const previousCrops = data.previousCrops || 'no previous crops';
-
-      // ⚠️ Replace with your backend API endpoint
-   const apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=" + apiKey;
-
-      const systemPrompt = "You are an AI assistant specialized in agricultural science and crop management. Provide expert crop recommendations based on the user's farming details. Format your response clearly with headings and bullet points.";
-
-      const userQuery = "Based on the following details, recommend suitable crops and explain why they are a good fit: \n" +
-        "- Farmer Name: " + farmerName + "\n" +
-        "- Farm Location: " + farmLocation + "\n" +
-        "- Farm Size: " + farmSize + "\n" +
-        "- Soil Type: " + soilType + "\n" +
-        "- Climate Zone: " + climateZone + "\n" +
-        "- Water Availability: " + waterAvailability + "\n" +
-        "- Budget Range: " + budgetRange + "\n" +
-        "- Previous Crops: " + previousCrops + "\n\n" +
-        "Provide the response in Markdown format with headings and bullet points.";
-
-      const payload = {
-        contents: [{ parts: [{ text: userQuery }] }],
-        systemInstruction: { parts: [{ text: systemPrompt }] },
-      };
-
-      try {
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+    <script>
+        document.getElementById('cropForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const soilType = document.getElementById('soilType').value;
+            const climate = document.getElementById('climate').value;
+            const waterAvailability = document.getElementById('waterAvailability').value;
+            const season = document.getElementById('season').value;
+            const farmSize = document.getElementById('farmSize').value;
+            const experience = document.getElementById('experience').value;
+            
+            // Show loading indicator
+            document.getElementById('loadingIndicator').style.display = 'block';
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('recommendBtn').disabled = true;
+            
+            try {
+                // In a real implementation, you would call the Gemini API here
+                // For this demo, we'll simulate the API response with a timeout
+                
+                // Simulate API call delay
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // For demo purposes, we'll generate recommendations based on the inputs
+                // In a real implementation, this would be replaced with an actual API call to Gemini
+                const recommendations = generateDemoRecommendations(
+                    soilType, climate, waterAvailability, season, farmSize, experience
+                );
+                
+                // Display the recommendations
+                displayRecommendations(recommendations);
+                
+            } catch (error) {
+                // Handle errors
+                document.getElementById('errorText').textContent = error.message || 'An error occurred while fetching recommendations.';
+                document.getElementById('errorMessage').style.display = 'block';
+            } finally {
+                // Hide loading indicator
+                document.getElementById('loadingIndicator').style.display = 'none';
+                document.getElementById('recommendBtn').disabled = false;
+            }
         });
-
-        if (!response.ok) {
-          throw new Error('HTTP error! status: ${response.status}');
-          throw new Error("HTTP error! status: " + response.status);
+        
+        // Home button functionality
+        document.getElementById('homeBtn').addEventListener('click', function() {
+            resetForm();
+            resetResults();
+        });
+        
+        // Reset button functionality
+        document.getElementById('resetBtn').addEventListener('click', function() {
+            resetForm();
+        });
+        
+        function resetForm() {
+            document.getElementById('cropForm').reset();
+            document.getElementById('errorMessage').style.display = 'none';
         }
-
-        const result = await response.json();
-        const recommendation = result?.candidates?.[0]?.content?.parts?.[0]?.text;
-
-        if (recommendation) {
-          const converter = new showdown.Converter();
-          const html = converter.makeHtml(recommendation);
-          outputDiv.innerHTML =
-            '<div class="bg-green-50 p-6 rounded-xl shadow-inner space-y-4">' +
-            '<h2 class="text-2xl font-semibold text-green-800">Your Crop Recommendations</h2>' +
-            '<div class="prose prose-green max-w-none">' + html + '</div>' +
-            '</div>';
-        } else {
-          outputDiv.innerHTML = '<p class="text-red-500">Sorry, something went wrong. Please try again.</p>';
+        
+        function resetResults() {
+            const resultContent = document.getElementById('resultContent');
+            resultContent.innerHTML = `
+                <div class="placeholder">
+                    <i class="fas fa-leaf" style="font-size: 4rem; margin-bottom: 20px; opacity: 0.5;"></i>
+                    <p>Enter your farming details and click "Get Crop Recommendations" to see AI-powered suggestions.</p>
+                </div>
+            `;
         }
-      } catch (error) {
-        console.error("Error fetching recommendations:", error);
-        outputDiv.innerHTML = '<p class="text-red-500">Error: ' + error.message + '</p>';
-      } finally {
-        loadingIndicator.classList.add('hidden');
-      }
-    });
-  });
-  </script>
+        
+        function generateDemoRecommendations(soilType, climate, waterAvailability, season, farmSize, experience) {
+            // This is a simplified demo function that generates recommendations based on inputs
+            // In a real implementation, this would be replaced with the Gemini API call
+            
+            const crops = [
+                {
+                    name: "Tomatoes",
+                    description: "Well-suited for your conditions. Requires moderate watering and grows best in loamy soil. Ideal for " + season + " season.",
+                    suitability: "High",
+                    yield: "Good",
+                    tips: ["Use stakes for support", "Regular pruning increases yield", "Watch for tomato hornworms"]
+                },
+                {
+                    name: "Corn",
+                    description: "Thrives in " + climate + " climate with " + waterAvailability + " water availability. Good choice for " + experience + " farmers.",
+                    suitability: "Medium",
+                    yield: "Excellent",
+                    tips: ["Plant in blocks for better pollination", "Needs nitrogen-rich soil", "Harvest when silks turn brown"]
+                },
+                {
+                    name: "Beans",
+                    description: "Excellent for " + soilType + " soil. Low maintenance and good for " + farmSize + " acre farm.",
+                    suitability: "High",
+                    yield: "Good",
+                    tips: ["Don't overwater", "Harvest regularly to encourage production", "Good companion plant for corn"]
+                }
+            ];
+            
+            // Add a custom message based on inputs
+            let customMessage = `Based on your ${soilType} soil, ${climate} climate, and ${waterAvailability} water availability, `;
+            customMessage += `these crops are well-suited for ${season} season farming on your ${farmSize} acre land. `;
+            customMessage += `As an ${experience} farmer, you should find these options manageable and profitable.`;
+            
+            return {
+                crops: crops,
+                message: customMessage
+            };
+        }
+        
+        function displayRecommendations(recommendations) {
+            const resultContent = document.getElementById('resultContent');
+            
+            // Clear previous content
+            resultContent.innerHTML = '';
+            
+            // Add the custom message
+            const messageEl = document.createElement('p');
+            messageEl.textContent = recommendations.message;
+            messageEl.style.marginBottom = '20px';
+            messageEl.style.fontStyle = 'italic';
+            messageEl.style.textAlign = 'left';
+            messageEl.style.width = '100%';
+            resultContent.appendChild(messageEl);
+            
+            // Add each crop recommendation
+            recommendations.crops.forEach(crop => {
+                const cropCard = document.createElement('div');
+                cropCard.className = 'crop-card';
+                
+                cropCard.innerHTML = `
+                    <div class="crop-name">${crop.name} <span style="font-size: 0.9rem; color: #4caf50;">(${crop.suitability} Suitability)</span></div>
+                    <div class="crop-details">
+                        <p>${crop.description}</p>
+                        <p><strong>Expected Yield:</strong> ${crop.yield}</p>
+                        <p><strong>Growing Tips:</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 5px;">
+                            ${crop.tips.map(tip => `<li>${tip}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+                
+                resultContent.appendChild(cropCard);
+            });
+        }
+        
+        // Add some sample data for demo purposes
+        window.addEventListener('load', function() {
+            // Pre-fill form with sample data for demo
+            document.getElementById('soilType').value = 'loamy';
+            document.getElementById('climate').value = 'temperate';
+            document.getElementById('waterAvailability').value = 'medium';
+            document.getElementById('season').value = 'summer';
+            document.getElementById('farmSize').value = '5.5';
+            document.getElementById('experience').value = 'intermediate';
+        });
+    </script>
 </body>
 </html>
