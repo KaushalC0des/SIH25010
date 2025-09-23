@@ -48,6 +48,10 @@ app.get("/", (req, res) => {
 app.get("/login", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "login_page", "login.html"));
 });
+// Crop recommendation page
+app.get("/crop_recommendation", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "crop_recommendation", "index.html"));
+});
 
 // Login POST handler
 app.post("/login", async (req, res) => {
