@@ -1,0 +1,342 @@
+/* --- Global Styles & Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary-green: #386641;
+    --accent-green-bold: #6A994E;
+    --light-green-bg: #F2F7F2;
+    --dark-text: #222222;
+    --light-text: #6c757d;
+    --border-color: #e0e0e0;
+    --card-bg: #FFFFFF;
+    --accent-yellow: #f39c12;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--dark-text);
+
+    /* --- UPDATED BACKGROUND --- */
+    /* A fallback solid color in case the image doesn't load */
+    background-color: #F2F7F2; 
+
+    /* A subtle, repeating SVG pattern for texture. 
+       This pattern is from HeroPatterns.com and is embedded directly. */
+    background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4e0d5' fill-opacity='0.4'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* --- New Hero Section --- */
+.hero {
+    position: relative;
+    padding: 4rem 2rem;
+    text-align: center;
+    color: white;
+    background: #333; /* Fallback color */
+    
+    /* You can find beautiful, free-to-use images on unsplash.com */
+    background-image: url('https://images.unsplash.com/photo-1592455502995-2f6b8a11b3d5?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Adds a dark overlay so the white text is readable */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+/* Ensures hero content appears above the overlay */
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.hero .icon-wrapper {
+    width: 70px;
+    height: 70px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 1rem;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.hero h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* --- Main Layout Container --- */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.main-content {
+    display: flex;
+    gap: 2rem;
+}
+
+/* --- Header Section --- */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header .title-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header .title-section .icon {
+    color: var(--primary-green);
+}
+
+.header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.ai-badge {
+    background-color: #e8f5e9;
+    color: var(--primary-green);
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.25rem 0.6rem;
+    border-radius: 12px;
+    margin-left: 0.5rem;
+}
+
+.back-link {
+    text-decoration: none;
+    color: var(--light-text);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* --- Core Content (Left Side) --- */
+.core-content {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* --- Upload Area --- */
+.upload-card {
+    background-color: var(--card-bg);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+}
+
+.upload-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.drop-zone {
+    border: 2px dashed var(--border-color);
+    border-radius: 10px;
+    padding: 3rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.drop-zone:hover {
+    background-color: var(--light-green-bg);
+    border-color: var(--accent-green-bold);
+    border-style: solid;
+}
+
+.drop-zone .upload-icon {
+    color: var(--primary-green);
+    margin-bottom: 1rem;
+    transition: color 0.3s ease;
+}
+
+.drop-zone:hover .upload-icon {
+    color: var(--accent-green-bold);
+}
+
+.drop-zone p {
+    color: var(--light-text);
+}
+
+.drop-zone .browse-link {
+    color: var(--accent-green-bold);
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+}
+.drop-zone .browse-link:hover {
+    text-decoration: underline;
+}
+
+.drop-zone .file-info {
+    font-size: 0.8rem;
+    color: #999;
+    margin-top: 0.5rem;
+}
+
+/* --- Sidebar (Right Side) --- */
+.sidebar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid #EAF2E5;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.card h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.card .icon {
+    color: var(--accent-yellow);
+}
+
+.tips-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.tips-list li {
+    color: var(--light-text);
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: flex-start;
+}
+
+.tips-list li::before {
+    content: '■';
+    color: var(--accent-yellow);
+    font-size: 0.6rem;
+    margin-right: 0.75rem;
+    padding-top: 0.3rem;
+}
+
+.stats-list .stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.stats-list .stat-item:last-child {
+    border-bottom: none;
+}
+
+.stats-list .stat-label {
+    color: var(--light-text);
+    font-size: 0.9rem;
+}
+
+.stats-list .stat-value {
+    font-weight: 600;
+    color: var(--primary-green);
+}
+
+.help-card p {
+    color: var(--light-text);
+    font-size: 0.9rem;
+    margin-bottom: 1.25rem;
+}
+
+.expert-btn {
+    background-color: var(--accent-green-bold);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.85rem 1.5rem;
+    font-weight: 600;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.expert-btn:hover {
+    background-color: var(--primary-green);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 992px) {
+    .main-content {
+        flex-direction: column;
+    }
+    .sidebar {
+        flex: none;
+        width: 100%;
+    }
+    .hero h2 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+     .container {
+        padding: 1rem;
+     }
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+}

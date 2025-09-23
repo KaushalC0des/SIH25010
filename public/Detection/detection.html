@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Disease Detection</title>
+    <link rel="stylesheet" href="../css/detection.css">
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <a href="/" class="back-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                </svg>
+                Back to Home
+            </a>
+            <div class="title-section">
+                <span class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8.416.223a.5.5 0 0 0-.832 0l-3 4.5A.5.5 0 0 0 5 5.5h.098L3.07 8.09a.5.5 0 0 0 .01.59l3.428 5.143a.5.5 0 0 0 .832-.577l-1.35-2.025h1.99a.5.5 0 0 0 .478-.658L9.04 8.5H11.5a.5.5 0 0 0 .478-.658L9.952 5.5h1.098a.5.5 0 0 0 .416-.777l-3-4.5zM7.06 11.634 4.54 7.745l1.033-.44h.013l1.83 2.745a.5.5 0 0 0 .832-.577L6.68 6.5h1.99a.5.5 0 0 0 .478-.658L7.696 3.5H9.5a.5.5 0 0 0 .478-.658L8.472 1.5H7.528l-1.47 2.205H7.5a.5.5 0 0 0 .478-.658L6.452 1H8.508l2.452 3.678h-1.04a.5.5 0 0 0-.478.658L11.3 8.5H9.04a.5.5 0 0 0-.478.658l1.35 2.025a.5.5 0 0 0 .832.577l-3.428-5.143a.5.5 0 0 0-.59-.01L7.93 8.09h-.098a.5.5 0 0 0-.416.777l3 4.5a.5.5 0 1 0 .832-.577L9.952 10.5h-1.098a.5.5 0 0 0-.478.658l1.47 2.205h-1.04a.5.5 0 0 0-.478.658L7.06 11.634z"/>
+                    </svg>
+                </span>
+                <h1>Plant Disease Detection</h1>
+                <span class="ai-badge">AI Powered</span>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <main class="core-content">
+                <section class="intro-section">
+                    <div class="icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+                           <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                           <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/>
+                        </svg>
+                    </div>
+                    <h2>Identify Plant Diseases Instantly</h2>
+                    <p>Upload a clear photo of your plant's affected area. Our AI will analyze the image and provide detailed information about potential diseases, treatments, and prevention methods.</p>
+                </section>
+
+                <section class="upload-card">
+                    <h3>Upload Plant Image</h3>
+                    <div class="drop-zone">
+                        <span class="upload-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v8.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 10.793V2.5A.5.5 0 0 1 8 2z"/>
+                                <path d="M1 14a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v-9a1 1 0 0 1-1-1H2a1 1 0 0 1-1 1v9zM2 4a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5V2.707L13.293 2H2.707L2 2.707V4z"/>
+                            </svg>
+                        </span>
+                        <p>Drop your image here, or <span class="browse-link">browse</span></p>
+                        <p class="file-info">Supports JPG, PNG, WebP (Max 10MB)</p>
+                    </div>
+                </section>
+            </main>
+
+            <aside class="sidebar">
+                <div class="card tips-card">
+                    <h4>
+                        <span class="icon">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8.5 2.687c.654-.689 1.782-.886 3.112-.752 1.234.124 2.51.52 3.884 1.34V1.841c-1.373-.82-2.65-.12-3.884-1.34C10.373 1.07 9.246.873 8.5 1.562V2.687zM8 1.993c1.559 0 3.178.675 3.178 1.691 0 .929-1.57 1.69-3.178 1.69S4.822 4.613 4.822 3.684C4.822 2.668 6.441 1.993 8 1.993z"/>
+                                <path d="M4.606 5.062c-.118.018-.233.04-.343.064C3.013 5.248 2 5.99 2 7.027c0 .93.93 1.67 2.42 1.927.129.022.259.042.389.06C6.556 9.173 8 9.94 8 11.027c0 .93-.93 1.67-2.42 1.927-.13.022-.26.042-.39.06C3.013 13.248 2 13.99 2 15.027V15.5c0 .331.253.68.732.813C3.985 16.533 5.75 16.9 8 16.9s4.015-.367 5.268-.587C13.747 16.18 14 15.83 14 15.5v-.473c0-1.037-1.013-1.779-2.258-1.915a5.536 5.536 0 0 1-.39-.06C9.88 11.293 9 10.55 9 9.527c0-.93.93-1.67 2.42-1.927.13-.022.26-.042.39-.06C13.364 7.427 14 6.69 14 5.663c0-1.037-1.013-1.779-2.258-1.915a5.536 5.536 0 0 1-.39-.06C9.88 3.293 9 2.55 9 1.527V1c0-.331-.253-.68-.732-.813C7.015-.033 5.25 0 3 0s-4.015.367-5.268.587C-2.747.82-3 1.17-3 1.5v.473c0 1.037 1.013 1.779 2.258 1.915a5.536 5.536 0 0 1 .39.06z"/>
+                            </svg>
+                        </span>
+                        Photography Tips
+                    </h4>
+                    <ul class="tips-list">
+                        <li>Take photos in natural daylight</li>
+                        <li>Focus on affected areas</li>
+                        <li>Include leaves, stems, or fruits</li>
+                        <li>Avoid blurry or dark images</li>
+                    </ul>
+                </div>
+
+                <div class="card stats-card">
+                    <h4>Detection Statistics</h4>
+                    <div class="stats-list">
+                        <div class="stat-item">
+                            <span class="stat-label">Accuracy Rate</span>
+                            <span class="stat-value">94.7%</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Diseases Detected</span>
+                            <span class="stat-value">150+</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Images Analyzed</span>
+                            <span class="stat-value">50,000+</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card help-card">
+                    <h4>Need Expert Help?</h4>
+                    <p>Get personalized advice from agricultural experts</p>
+                    <button class="expert-btn">Contact Expert</button>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+</body>
+</html>
