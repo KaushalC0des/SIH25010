@@ -28,7 +28,16 @@
 
             
         </nav>
-         <span><a href="/login" class="login-icon"><i class="fas fa-user-circle"></i> Login</a></span>
+         <span>
+             <select id="language-select">
+                 <option value="en">English</option>
+                 <option value="hi">Hindi</option>
+                 <option value="te">Telugu</option>
+                 <option value="ta">Tamil</option>
+                 <option value="kn">Kannada</option>
+             </select>
+             <a href="/login" class="login-icon"><i class="fas fa-user-circle"></i> Login</a>
+         </span>
     </header>
 
     <main class="hero-section">
@@ -97,6 +106,172 @@
         </div>
     </section>
 
-    <script src="script.js"></script>
+    <div class="chatbot-container">
+       <div class="chat-window" id="chatWindow">
+          <div class="chat-header">
+             <div class="chat-title">
+                <div class="chatbot-avatar">AI</div>
+                <div>
+                    <h2>Chat Assistant</h2>
+                    <div class="status"></div>
+                </div>
+             </div>
+              <i class="fas fa-comment message-icon"></i>
+             <button class="minimize-btn" id="minimizeBtn">−</button>
+          </div>
+          
+          <div class="chat-messages" id="chatMessages">
+             <div class="message bot-message">
+                <div class="message-avatar">AI</div>
+                <div class="message-content">
+                    <p>Hi, I am Krishiseva and here to help you!</p>
+                    <span class="message-time">10:00 AM</span>
+                </div>
+             </div>
+             
+             <div class="message user-message">
+                <div class="message-avatar">U</div>
+                <div class="message-content">
+                    <p>Hi! Can you show me how the shrink feature works?</p>
+                    <span class="message-time">10:01 AM</span>
+                </div>
+             </div>
+             
+             <div class="message bot-message">
+                <div class="message-avatar">AI</div>
+                <div class="message-content">
+                    <p>Sure! Click the minimize button in the top right to shrink me to a small circle. Click the circle to expand again.</p>
+                    <span class="message-time">10:01 AM</span>
+                </div>
+             </div>
+          </div>
+          
+          <div class="chat-input">
+             <input type="text" id="messageInput" placeholder="Type your message here..." maxlength="500">
+             <button id="sendButton">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                </svg>
+             </button>
+          </div>
+          
+          <div class="notification" id="notification">1</div>
+       </div>
+    </div>
+
+    <script>
+        // Get DOM elements
+        const chatWindow = document.getElementById('chatWindow');
+        const minimizeBtn = document.getElementById('minimizeBtn');
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+        const chatMessages = document.getElementById('chatMessages');
+        const notification = document.getElementById('notification');
+        
+        // State variables
+        let isMinimized = false;
+        let messageCount = 0;
+        
+        // Toggle minimize/expand
+        minimizeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleMinimize();
+        });
+        
+        chatWindow.addEventListener('click', function(e) {
+            if (isMinimized) {
+                toggleMinimize();
+            }
+        });
+        
+        function toggleMinimize() {
+            isMinimized = !isMinimized;
+            chatWindow.classList.toggle('shrink', isMinimized);
+            
+            if (isMinimized) {
+                minimizeBtn.textContent = '+';
+                notification.style.display = 'flex';
+            } else {
+                minimizeBtn.textContent = '−';
+                notification.style.display = 'none';
+                messageCount = 0;
+                notification.textContent = '1';
+            }
+        }
+        
+        // Send message functionality
+        sendButton.addEventListener('click', sendMessage);
+        
+        messageInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            
+            if (message) {
+                // Add user message
+                addMessage(message, 'user');
+                messageInput.value = '';
+                
+                // Simulate bot response after delay
+                setTimeout(function() {
+                    const responses = [
+                        "I understand. Can you tell me more?",
+                        "That's interesting! How can I assist you further?",
+                        "Thanks for sharing that. What else would you like to know?",
+                        "I see. Is there anything specific you need help with?",
+                        "Great question! Let me think about that...",
+                        "I'm here to help. What would you like to discuss?"
+                    ];
+                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                    addMessage(randomResponse, 'bot');
+                    
+                    // If minimized, show notification
+                    if (isMinimized) {
+                        messageCount++;
+                        notification.textContent = messageCount;
+                    }
+                }, 1000);
+            }
+        }
+        
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ' + sender + '-message';
+            
+            const time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            if (sender === 'user') {
+                messageDiv.innerHTML = `
+                    <div class="message-avatar">U</div>
+                    <div class="message-content">
+                        <p>${text}</p>
+                        <span class="message-time">${time}</span>
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="message-avatar">AI</div>
+                    <div class="message-content">
+                        <p>${text}</p>
+                        <span class="message-time">${time}</span>
+                    </div>
+                `;
+            }
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // Add a welcome message after page loads
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                addMessage("i am not functioning now but soon i will there for help", 'bot');
+            }, 2000);
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Village Weather & Agriculture Advisor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #e6f7e6, #c8e6c9);
+            color: #2d3436;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #2e7d32, #4caf50);
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        .village-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .village-icon {
+            font-size: 2rem;
+        }
+        
+        .search-section {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+        }
+        
+        .search-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 15px;
+            align-items: end;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2e7d32;
+            font-size: 0.9rem;
+        }
+        
+        .search-input, .search-select {
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .search-input:focus, .search-select:focus {
+            outline: none;
+            border-color: #4caf50;
+        }
+        
+        .search-btn {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            height: fit-content;
+        }
+        
+        .search-btn:hover {
+            background: #388e3c;
+        }
+        
+        .location-btn {
+            background: #ff9800;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .location-btn:hover {
+            background: #f57c00;
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-large {
+            grid-column: 1 / -1;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #2e7d32;
+            border-bottom: 2px solid #e0f2e0;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .current-weather {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .weather-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            color: #4caf50;
+        }
+        
+        .temperature {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #2d3436;
+        }
+        
+        .weather-description {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #636e72;
+            text-transform: capitalize;
+        }
+        
+        .location {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2e7d32;
+        }
+        
+        .weather-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0f2e0;
+        }
+        
+        .agriculture-tips {
+            background: #f1f8e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .tip-item {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .tip-icon {
+            color: #4caf50;
+            margin-top: 3px;
+        }
+        
+        .forecast-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .forecast-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+            border: 1px solid #e0f2e0;
+        }
+        
+        .forecast-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .forecast-day {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2d3436;
+        }
+        
+        .forecast-icon {
+            font-size: 2rem;
+            margin: 10px 0;
+            color: #4caf50;
+        }
+        
+        .forecast-temp {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2d3436;
+        }
+        
+        .forecast-desc {
+            font-size: 0.8rem;
+            color: #636e72;
+            margin-top: 5px;
+            text-transform: capitalize;
+        }
+        
+        .soil-moisture {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        
+        .moisture-bar {
+            flex: 1;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .moisture-level {
+            height: 100%;
+            background: #4caf50;
+            border-radius: 5px;
+        }
+        
+        .crop-suggestion {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+        
+        .crop-name {
+            font-weight: 600;
+            color: #2e7d32;
+            margin-bottom: 5px;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #4caf50;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error {
+            color: #d63031;
+            background: #ffebee;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+            text-align: center;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #2e7d32;
+            font-size: 0.9rem;
+            margin-top: 30px;
+            border-top: 1px solid #c8e6c9;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .forecast-container {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+            
+            .weather-details {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-tractor"></i> Village Weather & Agriculture Advisor</h1>
+            <p class="subtitle">Precise weather forecasts and farming recommendations tailored to your village</p>
+            <div class="village-header">
+                <i class="fas fa-home village-icon"></i>
+                <span>Get hyperlocal weather data for better farming decisions</span>
+            </div>
+        </header>
+        
+        <section class="search-section">
+            <form id="searchForm">
+                <div class="search-form">
+                    <div class="form-group">
+                        <label for="stateInput">State</label>
+                        <input type="text" class="search-input" id="stateInput" placeholder="Enter state" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="districtInput">District</label>
+                        <input type="text" class="search-input" id="districtInput" placeholder="Enter district" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="villageInput">Village Name</label>
+                        <input type="text" class="search-input" id="villageInput" placeholder="Enter village name" required>
+                    </div>
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search"></i> Get Village Weather
+                    </button>
+                </div>
+            </form>
+            <button class="location-btn" id="locationBtn">
+                <i class="fas fa-location-arrow"></i> Detect My Village Location
+            </button>
+            
+            <div class="loading" id="loadingIndicator">
+                <div class="spinner"></div>
+                <p>Fetching village-specific weather data...</p>
+            </div>
+            
+            <div class="error" id="errorMessage">
+                <i class="fas fa-exclamation-triangle"></i> <span id="errorText">An error occurred. Please try again.</span>
+            </div>
+        </section>
+        
+        <div class="content">
+            <section class="card">
+                <h2><i class="fas fa-cloud-sun"></i> Current Weather</h2>
+                <div class="current-weather" id="currentWeather">
+                    <div class="placeholder">
+                        <i class="fas fa-cloud weather-icon"></i>
+                        <p>Enter your village details to see current weather conditions</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="card">
+                <h2><i class="fas fa-seedling"></i> Agriculture Advisory</h2>
+                <div id="agricultureAdvisory">
+                    <div class="placeholder">
+                        <p>Weather-based farming advice will appear here</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="card card-large">
+                <h2><i class="fas fa-calendar-alt"></i> 7-Day Village Forecast</h2>
+                <div class="forecast-container" id="forecastContainer">
+                    <div class="placeholder">
+                        <p>7-day weather forecast for your village will appear here</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="card">
+                <h2><i class="fas fa-tint"></i> Soil & Moisture</h2>
+                <div id="soilInfo">
+                    <div class="placeholder">
+                        <p>Soil conditions based on recent weather</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="card">
+                <h2><i class="fas fa-leaf"></i> Crop Suggestions</h2>
+                <div id="cropSuggestions">
+                    <div class="placeholder">
+                        <p>Best crops for current conditions</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <footer>
+            <p>Powered by OpenWeather API • Tailored for village-level agriculture • Data updates every hour</p>
+        </footer>
+    </div>
+
+    <script>
+        // OpenWeather API configuration
+        const API_KEY = '436e701c44762497299f4db0830cf0bc';
+        const BASE_URL = 'https://api.openweathermap.org/data/2.5';
+        
+        // DOM elements
+        const searchForm = document.getElementById('searchForm');
+        const stateInput = document.getElementById('stateInput');
+        const districtInput = document.getElementById('districtInput');
+        const villageInput = document.getElementById('villageInput');
+        const locationBtn = document.getElementById('locationBtn');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const errorMessage = document.getElementById('errorMessage');
+        const currentWeather = document.getElementById('currentWeather');
+        const forecastContainer = document.getElementById('forecastContainer');
+        const agricultureAdvisory = document.getElementById('agricultureAdvisory');
+        const soilInfo = document.getElementById('soilInfo');
+        const cropSuggestions = document.getElementById('cropSuggestions');
+        
+        // Event listeners
+        searchForm.addEventListener('submit', handleSearch);
+        locationBtn.addEventListener('click', handleLocationSearch);
+        
+        // Initialize with a sample village
+        window.addEventListener('load', () => {
+            stateInput.value = 'Maharashtra';
+            districtInput.value = 'Nashik';
+            villageInput.value = 'Pimpalgaon';
+            fetchWeatherData('Pimpalgaon', 'IN');
+        });
+        
+        // Handle village search
+        async function handleSearch(e) {
+            e.preventDefault();
+            const state = stateInput.value.trim();
+            const district = districtInput.value.trim();
+            const village = villageInput.value.trim();
+            
+            if (state && district && village) {
+                // For demo, we'll use the village name directly
+                // In a real implementation, you might geocode the full address
+                await fetchWeatherData(village, 'IN');
+            }
+        }
+        
+        // Handle location-based search
+        async function handleLocationSearch() {
+            if (!navigator.geolocation) {
+                showError('Geolocation is not supported by your browser');
+                return;
+            }
+            
+            loadingIndicator.style.display = 'block';
+            errorMessage.style.display = 'none';
+            
+            navigator.geolocation.getCurrentPosition(
+                async (position) => {
+                    const { latitude, longitude } = position.coords;
+                    await fetchWeatherByCoords(latitude, longitude);
+                },
+                (error) => {
+                    loadingIndicator.style.display = 'none';
+                    showError('Unable to retrieve your location. Please enter your village details manually.');
+                }
+            );
+        }
+        
+        // Fetch weather data by village name
+        async function fetchWeatherData(village, countryCode) {
+            loadingIndicator.style.display = 'block';
+            errorMessage.style.display = 'none';
+            
+            try {
+                // Fetch current weather
+                const currentResponse = await fetch(
+                    `${BASE_URL}/weather?q=${village},${countryCode}&appid=${API_KEY}&units=metric`
+                );
+                
+                if (!currentResponse.ok) {
+                    throw new Error('Village not found. Please check the spelling and try again.');
+                }
+                
+                const currentData = await currentResponse.json();
+                
+                // Fetch 7-day forecast
+                const forecastResponse = await fetch(
+                    `${BASE_URL}/forecast?q=${village},${countryCode}&appid=${API_KEY}&units=metric`
+                );
+                
+                if (!forecastResponse.ok) {
+                    throw new Error('Forecast data unavailable for this village.');
+                }
+                
+                const forecastData = await forecastResponse.json();
+                
+                // Display the data
+                displayCurrentWeather(currentData);
+                displayForecast(forecastData);
+                displayAgricultureAdvisory(currentData, forecastData);
+                displaySoilInfo(currentData, forecastData);
+                displayCropSuggestions(currentData, forecastData);
+                
+            } catch (error) {
+                showError(error.message);
+            } finally {
+                loadingIndicator.style.display = 'none';
+            }
+        }
+        
+        // Fetch weather data by coordinates
+        async function fetchWeatherByCoords(lat, lon) {
+            try {
+                // Fetch current weather
+                const currentResponse = await fetch(
+                    `${BASE_URL}/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
+                );
+                
+                if (!currentResponse.ok) {
+                    throw new Error('Weather data unavailable for your location.');
+                }
+                
+                const currentData = await currentResponse.json();
+                
+                // Fetch 7-day forecast
+                const forecastResponse = await fetch(
+                    `${BASE_URL}/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
+                );
+                
+                if (!forecastResponse.ok) {
+                    throw new Error('Forecast data unavailable for your location.');
+                }
+                
+                const forecastData = await forecastResponse.json();
+                
+                // Try to extract village name from response or use coordinates
+                const villageName = currentData.name || `${lat.toFixed(2)}, ${lon.toFixed(2)}`;
+                
+                // Update inputs with detected location
+                stateInput.value = 'Detected';
+                districtInput.value = 'Nearby';
+                villageInput.value = villageName;
+                
+                // Display the data
+                displayCurrentWeather(currentData);
+                displayForecast(forecastData);
+                displayAgricultureAdvisory(currentData, forecastData);
+                displaySoilInfo(currentData, forecastData);
+                displayCropSuggestions(currentData, forecastData);
+                
+            } catch (error) {
+                showError(error.message);
+            } finally {
+                loadingIndicator.style.display = 'none';
+            }
+        }
+        
+        // Display current weather data
+        function displayCurrentWeather(data) {
+            const { name, main, weather, wind, sys } = data;
+            const iconCode = weather[0].icon;
+            
+            currentWeather.innerHTML = `
+                <div class="weather-icon">
+                    <i class="fas ${getWeatherIcon(weather[0].main, iconCode)}"></i>
+                </div>
+                <div class="temperature">${Math.round(main.temp)}°C</div>
+                <div class="weather-description">${weather[0].description}</div>
+                <div class="location">${name} Village</div>
+                
+                <div class="weather-details">
+                    <div class="detail-item">
+                        <span>Feels Like:</span>
+                        <span>${Math.round(main.feels_like)}°C</span>
+                    </div>
+                    <div class="detail-item">
+                        <span>Humidity:</span>
+                        <span>${main.humidity}%</span>
+                    </div>
+                    <div class="detail-item">
+                        <span>Wind Speed:</span>
+                        <span>${wind.speed} m/s</span>
+                    </div>
+                    <div class="detail-item">
+                        <span>Pressure:</span>
+                        <span>${main.pressure} hPa</span>
+                    </div>
+                    <div class="detail-item">
+                        <span>Min Temp:</span>
+                        <span>${Math.round(main.temp_min)}°C</span>
+                    </div>
+                    <div class="detail-item">
+                        <span>Max Temp:</span>
+                        <span>${Math.round(main.temp_max)}°C</span>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Display 7-day forecast
+        function displayForecast(data) {
+            // Group forecast by day (OpenWeather returns data for every 3 hours)
+            const dailyForecasts = {};
+            
+            data.list.forEach(item => {
+                const date = new Date(item.dt * 1000);
+                const day = date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+                
+                if (!dailyForecasts[day]) {
+                    dailyForecasts[day] = {
+                        temps: [],
+                        weather: item.weather[0],
+                        icon: item.weather[0].icon
+                    };
+                }
+                
+                dailyForecasts[day].temps.push(item.main.temp);
+            });
+            
+            // Create forecast cards
+            forecastContainer.innerHTML = '';
+            
+            // Get the next 7 days
+            const forecastDays = Object.keys(dailyForecasts).slice(0, 7);
+            
+            forecastDays.forEach(day => {
+                const forecast = dailyForecasts[day];
+                const avgTemp = Math.round(forecast.temps.reduce((a, b) => a + b) / forecast.temps.length);
+                const minTemp = Math.round(Math.min(...forecast.temps));
+                const maxTemp = Math.round(Math.max(...forecast.temps));
+                
+                const forecastCard = document.createElement('div');
+                forecastCard.className = 'forecast-card';
+                forecastCard.innerHTML = `
+                    <div class="forecast-day">${day}</div>
+                    <div class="forecast-icon">
+                        <i class="fas ${getWeatherIcon(forecast.weather.main, forecast.icon)}"></i>
+                    </div>
+                    <div class="forecast-temp">${avgTemp}°C</div>
+                    <div class="forecast-desc">${forecast.weather.description}</div>
+                    <div style="margin-top: 10px; font-size: 0.8rem;">
+                        <div>H: ${maxTemp}°C</div>
+                        <div>L: ${minTemp}°C</div>
+                    </div>
+                `;
+                
+                forecastContainer.appendChild(forecastCard);
+            });
+        }
+        
+        // Display agriculture advisory
+        function displayAgricultureAdvisory(currentData, forecastData) {
+            const { main, weather } = currentData;
+            const temp = main.temp;
+            const humidity = main.humidity;
+            const condition = weather[0].main;
+            
+            let advisory = '';
+            
+            if (temp < 10) {
+                advisory = 'Low temperatures. Protect sensitive crops with covers. Delay sowing of summer crops.';
+            } else if (temp > 35) {
+                advisory = 'High temperatures. Irrigate in early morning or late evening. Provide shade for delicate plants.';
+            } else {
+                advisory = 'Temperatures are favorable for most crops. Good time for planting and growth activities.';
+            }
+            
+            if (humidity > 80) {
+                advisory += ' High humidity increases disease risk. Apply fungicides if needed. Ensure proper ventilation.';
+            } else if (humidity < 40) {
+                advisory += ' Low humidity increases water needs. Irrigate more frequently. Mulch to conserve soil moisture.';
+            }
+            
+            if (condition === 'Rain') {
+                advisory += ' Rainfall expected. Good time for rain-fed crops. Delay fertilizer application.';
+            } else if (condition === 'Clear') {
+                advisory += ' Sunny conditions. Ideal for drying crops. Ensure adequate irrigation.';
+            }
+            
+            agricultureAdvisory.innerHTML = `
+                <div class="agriculture-tips">
+                    <div class="tip-item">
+                        <i class="fas fa-info-circle tip-icon"></i>
+                        <span>${advisory}</span>
+                    </div>
+                    <div class="tip-item">
+                        <i class="fas fa-calendar-day tip-icon"></i>
+                        <span>Based on current conditions: ${temp}°C, ${humidity}% humidity, ${condition.toLowerCase()}</span>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Display soil information
+        function displaySoilInfo(currentData, forecastData) {
+            const { main, weather } = currentData;
+            const temp = main.temp;
+            const humidity = main.humidity;
+            const condition = weather[0].main;
+            
+            // Simulate soil moisture based on recent weather
+            let moistureLevel = 50; // Default
+            let moistureStatus = 'Moderate';
+            
+            if (condition === 'Rain') {
+                moistureLevel = 85;
+                moistureStatus = 'High';
+            } else if (condition === 'Clear' && temp > 30) {
+                moistureLevel = 35;
+                moistureStatus = 'Low';
+            } else if (humidity > 70) {
+                moistureLevel = 65;
+                moistureStatus = 'Good';
+            }
+            
+            soilInfo.innerHTML = `
+                <div class="soil-moisture">
+                    <span>Soil Moisture:</span>
+                    <span>${moistureStatus}</span>
+                </div>
+                <div class="moisture-bar">
+                    <div class="moisture-level" style="width: ${moistureLevel}%"></div>
+                </div>
+                <div style="margin-top: 10px; font-size: 0.9rem;">
+                    <p>Based on recent weather conditions, soil moisture is ${moistureStatus.toLowerCase()}.</p>
+                    ${moistureLevel < 40 ? '<p>Consider irrigation to maintain optimal soil moisture.</p>' : ''}
+                    ${moistureLevel > 70 ? '<p>Soil is well-hydrated. Delay irrigation to prevent waterlogging.</p>' : ''}
+                </div>
+            `;
+        }
+        
+        // Display crop suggestions
+        function displayCropSuggestions(currentData, forecastData) {
+            const { main } = currentData;
+            const temp = main.temp;
+            const humidity = main.humidity;
+            
+            let crops = [];
+            
+            if (temp >= 20 && temp <= 30) {
+                if (humidity >= 60) {
+                    crops = [
+                        { name: 'Rice', description: 'Ideal conditions for paddy cultivation' },
+                        { name: 'Sugarcane', description: 'Good temperature and moisture levels' },
+                        { name: 'Banana', description: 'Warm and humid conditions favorable' }
+                    ];
+                } else {
+                    crops = [
+                        { name: 'Wheat', description: 'Moderate temperatures suitable for growth' },
+                        { name: 'Chickpea', description: 'Good conditions for legume cultivation' },
+                        { name: 'Mustard', description: 'Favorable for oilseed crops' }
+                    ];
+                }
+            } else if (temp > 30) {
+                crops = [
+                    { name: 'Cotton', description: 'Heat-tolerant crop suitable for current conditions' },
+                    { name: 'Pearl Millet', description: 'Drought-resistant cereal crop' },
+                    { name: 'Groundnut', description: 'Warm weather crop with good yield potential' }
+                ];
+            } else {
+                crops = [
+                    { name: 'Barley', description: 'Cool weather cereal crop' },
+                    { name: 'Peas', description: 'Winter legume with good cold tolerance' },
+                    { name: 'Potato', description: 'Root vegetable suitable for cooler conditions' }
+                ];
+            }
+            
+            let cropsHTML = '';
+            crops.forEach(crop => {
+                cropsHTML += `
+                    <div class="crop-suggestion">
+                        <div class="crop-name">${crop.name}</div>
+                        <div>${crop.description}</div>
+                    </div>
+                `;
+            });
+            
+            cropSuggestions.innerHTML = cropsHTML;
+        }
+        
+        // Map OpenWeather condition codes to Font Awesome icons
+        function getWeatherIcon(condition, iconCode) {
+            const isDay = iconCode.includes('d');
+            
+            switch(condition) {
+                case 'Clear':
+                    return isDay ? 'fa-sun' : 'fa-moon';
+                case 'Clouds':
+                    return iconCode === '04d' || iconCode === '04n' ? 'fa-cloud' : 'fa-cloud-sun';
+                case 'Rain':
+                    return 'fa-cloud-rain';
+                case 'Drizzle':
+                    return 'fa-cloud-drizzle';
+                case 'Thunderstorm':
+                    return 'fa-bolt';
+                case 'Snow':
+                    return 'fa-snowflake';
+                case 'Mist':
+                case 'Smoke':
+                case 'Haze':
+                case 'Dust':
+                case 'Fog':
+                case 'Sand':
+                case 'Ash':
+                case 'Squall':
+                case 'Tornado':
+                    return 'fa-smog';
+                default:
+                    return 'fa-cloud';
+            }
+        }
+        
+        // Show error message
+        function showError(message) {
+            errorText.textContent = message;
+            errorMessage.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

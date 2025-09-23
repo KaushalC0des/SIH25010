@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shrinking Chatbot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .chatbot-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .chat-window {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            transition: all 0.4s ease;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-window.shrink {
+            height: 60px;
+            width: 60px;
+            border-radius: 50%;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            cursor: pointer;
+        }
+
+        .chat-header {
+            background: #4a6bff;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-window.shrink .chat-header {
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+        }
+
+        .chat-window.shrink .chat-title,
+        .chat-window.shrink .minimize-btn,
+        .chat-window.shrink .chat-messages,
+        .chat-window.shrink .chat-input {
+            display: none;
+        }
+
+        .chat-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chat-title h2 {
+            font-size: 1.2rem;
+        }
+
+        .status {
+            width: 8px;
+            height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+        }
+
+        .minimize-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chatbot-avatar {
+            width: 35px;
+            height: 35px;
+            background: #4a6bff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .chat-window.shrink .chatbot-avatar {
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            display: flex;
+            max-width: 80%;
+        }
+
+        .bot-message {
+            align-self: flex-start;
+        }
+
+        .user-message {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 8px;
+            flex-shrink: 0;
+            font-size: 0.8rem;
+        }
+
+        .bot-message .message-avatar {
+            background: #4a6bff;
+            color: white;
+        }
+
+        .user-message .message-avatar {
+            background: #ff6b4a;
+            color: white;
+        }
+
+        .message-content {
+            padding: 10px 14px;
+            border-radius: 15px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            max-width: 100%;
+        }
+
+        .bot-message .message-content {
+            background: white;
+            border-bottom-left-radius: 5px;
+        }
+
+        .user-message .message-content {
+            background: #4a6bff;
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message-content p {
+            margin: 0;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+
+        .chat-input {
+            padding: 15px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            gap: 10px;
+        }
+
+        #messageInput {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        #sendButton {
+            width: 40px;
+            height: 40px;
+            background: #4a6bff;
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notification {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff4757;
+            color: white;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            display: none;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chatbot-container">
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div class="chat-title">
+                    <div class="chatbot-avatar">AI</div>
+                    <div>
+                        <h2>Chat Assistant</h2>
+                        <div class="status"></div>
+                    </div>
+                </div>
+                <button class="minimize-btn" id="minimizeBtn">−</button>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-message">
+                    <div class="message-avatar">AI</div>
+                    <div class="message-content">
+                        <p>Hello! I'm your AI assistant.</p>
+                        <span class="message-time">10:00 AM</span>
+                    </div>
+                </div>
+                
+                <div class="message user-message">
+                    <div class="message-avatar">U</div>
+                    <div class="message-content">
+                        <p>Hi! Can you show me the shrink feature?</p>
+                        <span class="message-time">10:01 AM</span>
+                    </div>
+                </div>
+                
+                <div class="message bot-message">
+                    <div class="message-avatar">AI</div>
+                    <div class="message-content">
+                        <p>Click the minimize button to shrink me to a small circle!</p>
+                        <span class="message-time">10:01 AM</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chat-input">
+                <input type="text" id="messageInput" placeholder="Type a message...">
+                <button id="sendButton">➤</button>
+            </div>
+            
+            <div class="notification" id="notification">1</div>
+        </div>
+    </div>
+
+    <script>
+        // Get DOM elements
+        const chatWindow = document.getElementById('chatWindow');
+        const minimizeBtn = document.getElementById('minimizeBtn');
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+        const chatMessages = document.getElementById('chatMessages');
+        const notification = document.getElementById('notification');
+        
+        // State variables
+        let isMinimized = false;
+        let messageCount = 0;
+        
+        // Toggle minimize/expand
+        minimizeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleMinimize();
+        });
+        
+        chatWindow.addEventListener('click', function(e) {
+            if (isMinimized) {
+                toggleMinimize();
+            }
+        });
+        
+        function toggleMinimize() {
+            isMinimized = !isMinimized;
+            chatWindow.classList.toggle('shrink', isMinimized);
+            
+            if (isMinimized) {
+                minimizeBtn.textContent = '+';
+                notification.style.display = 'flex';
+            } else {
+                minimizeBtn.textContent = '−';
+                notification.style.display = 'none';
+                messageCount = 0;
+                notification.textContent = '1';
+            }
+        }
+        
+        // Send message functionality
+        sendButton.addEventListener('click', sendMessage);
+        
+        messageInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            
+            if (message) {
+                // Add user message
+                addMessage(message, 'user');
+                messageInput.value = '';
+                
+                // Simulate bot response after delay
+                setTimeout(function() {
+                    const responses = [
+                        "I understand. Can you tell me more?",
+                        "That's interesting!",
+                        "Thanks for sharing that.",
+                        "I see. Is there anything specific you need help with?",
+                        "Great question!",
+                        "I'm here to help."
+                    ];
+                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                    addMessage(randomResponse, 'bot');
+                    
+                    // If minimized, show notification
+                    if (isMinimized) {
+                        messageCount++;
+                        notification.textContent = messageCount;
+                    }
+                }, 1000);
+            }
+        }
+        
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ' + sender + '-message';
+            
+            const time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            if (sender === 'user') {
+                messageDiv.innerHTML = `
+                    <div class="message-avatar">U</div>
+                    <div class="message-content">
+                        <p>${text}</p>
+                        <span class="message-time">${time}</span>
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="message-avatar">AI</div>
+                    <div class="message-content">
+                        <p>${text}</p>
+                        <span class="message-time">${time}</span>
+                    </div>
+                `;
+            }
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    </script>
+</body>
+</html>
